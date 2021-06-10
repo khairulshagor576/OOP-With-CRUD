@@ -6,6 +6,19 @@ class Database
     public $user   = DB_USER;
     public $pass   = DB_PASS;
     public $dbname = DB_NAME;
+
+    public $link;
+    public $error;
+
+    private function connectionDB()
+    {
+        $this->link= new mysqli($this->host,$this->user,$this->pass,$this->dbname);
+        if(!$this->link)
+        {
+          $this->error="Connection Failed!".$this->link->connect_error;
+          return false;
+        }
+    }
 }
 
 
