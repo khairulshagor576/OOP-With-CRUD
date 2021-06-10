@@ -7,7 +7,12 @@ $db=new Database();
 $query="SELECT * FROM tbl_user";
 $read=$db->select($query);
 ?>
-
+<?php
+ if(isset($_GET['msg']))
+ {
+     echo "<span style='color:green'>".$_GET['msg']."</span>";
+ }
+?>
 <table border="1" cellspacing="1" cellpadding="1" width="100%">
        <tr>
            <th>SL</th>
@@ -40,7 +45,7 @@ $read=$db->select($query);
         <div style="color: red;">No Data Found</div>
         <?php } ?>
 </table>
-
+<a href="create.php">Create Data</a>
 <?php
 include "inc/footer.php";
 ?>

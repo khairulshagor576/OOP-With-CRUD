@@ -25,7 +25,7 @@ class Database
         }
     }
 
-    //Select or Read database
+    //Select or Read database Function
 
     public function select ($data)
     {
@@ -36,6 +36,19 @@ class Database
           return $result;
       }else{
           return false;
+      }
+    }
+
+    //Insert Database Function
+
+    public function insert($data) 
+    {
+      $result=$this->link->query($data) or die($this->link->error.__LINE__);
+      if($result)
+      {
+          header("Location: index.php?msg=".urlencode('Data Inserted Successfully.'));
+      }else{
+          die("Error: (".$this->link->errno.")").$this->link->error;
       }
     }
 
