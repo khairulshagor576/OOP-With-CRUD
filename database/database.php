@@ -10,15 +10,35 @@ class Database
     public $link;
     public $error;
 
+    public function __construct()
+    {
+        $this->connectionDB();
+    }
+
     private function connectionDB()
     {
         $this->link= new mysqli($this->host,$this->user,$this->pass,$this->dbname);
         if(!$this->link)
         {
-          $this->error="Connection Failed!".$this->link->connect_error;
-          return false;
+            $this->error="Connection Failed!".$this->link->connect_error;
+            return false;
         }
     }
+
+    //Select or Read database
+
+    public function select ($data)
+    {
+      $result=$this->link->query($data) or die($this->link->error.__LINE__);
+
+      if( $result->num_rows>0)
+      {
+          return $result;
+      }else{
+          return false;
+      }
+    }
+
 }
 
 
