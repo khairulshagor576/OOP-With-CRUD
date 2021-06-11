@@ -52,6 +52,20 @@ class Database
       }
     }
 
+    //update Database function
+
+    public function update($data)
+    {
+        $result=$this->link->query($data) or die ($this->link->error.__LINE__);
+
+        if($result)
+        {
+          header("Location: index.php?msg=".urlencode("Data Updated Successfully"));
+        }else{
+            die("Error: (".$this->link->errno.")").$this->link->error;
+        }
+    }
+
 }
 
 
