@@ -4,12 +4,10 @@ include "database/config.php";
 include "database/database.php";
 
 $db=new Database();
+//id get from edit button
 $id=$_GET['eid'];
 
-$query="SELECT * FROM tbl_user WHERE id={$id}";
-$read=$db->select($query);
-$row=$read->fetch_assoc();
-
+//update query start here:
 if(isset($_POST['submit']))
 {
   $name=mysqli_real_escape_string($db->link,$_POST['name']);
@@ -29,17 +27,21 @@ if(isset($_POST['submit']))
 
 ?>
 <?php
-// if($read)
-// {
-//   while($row=$read->fetch_assoc())
-//   {
+//select all data from database:
+$query="SELECT * FROM tbl_user WHERE id={$id}";
+$read=$db->select($query);
+//$row=$read->fetch_assoc();
+if($read)
+{
+  while($row=$read->fetch_assoc())
+  {
 ?>
-<form action="edit.php?eid=<?php echo $row['id']; ?>" method="post">
+<form action="" method="post">
     <table width="100%">
     <tr>
         <td>Name</td>
         <td><input type="text" name="name" value="<?php echo $row['name'];?>"/></td>
-        <!-- <td><input type="hidden" name="name" value="<?php echo $row['id'];?>"/></td> -->
+        <td><input type="hidden" name="update_id" value="<?php echo $row['id'];?>"/></td>
     </tr>
     <tr>
         <td>Email</td>
@@ -59,8 +61,8 @@ if(isset($_POST['submit']))
     </table>
 </form>
 <?php
-//   }
-// }
+  }
+}
 ?>
 <a href="index.php">Go Back</a>
 <?php

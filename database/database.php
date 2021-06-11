@@ -66,6 +66,19 @@ class Database
         }
     }
 
+    //delete Data From Database function:
+
+    public function delete($data) 
+    {
+        $result=$this->link->query($data) or die($this->link->error.__LINE__);
+
+        if( $result)
+        {
+          header("Location: index.php?msg=".urlencode("Data Deleted Successfully"));
+        }else{
+          die("Error: (".$this->link->errno.")").$this->link->error;
+        }
+    }
 }
 
 
